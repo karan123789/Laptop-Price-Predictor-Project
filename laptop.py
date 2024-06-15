@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-# Mock DataFrame to replace df.pkl
+# Dataframe to organize the columns regarding company etc.
 data = {
     'Company': ['Dell', 'HP', 'Acer', 'Apple', 'Asus', 'Lenovo', 'MSI'],
     'TypeName': ['Ultrabook', 'Gaming', 'Notebook', 'Netbook', 'Workstation', 'Ultrabook', 'Gaming'],
@@ -12,7 +12,7 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Mock model to replace pipe.pkl
+# Model for encoding and prediction
 class MockModel:
     def predict(self, query):
         # Encoding categorical variables
