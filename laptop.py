@@ -16,22 +16,23 @@ df = pd.DataFrame(data)
 class MockModel:
     def predict(self, query):
         # Simple encoding for categorical variables
-        encoding = {val: idx for idx, val in enumerate(np.unique(query))}
-        encoded_query = [encoding[val] if val in encoding else val for val in query]
+        categorical_features = [0, 1, 7, 10, 11]  # Indices of categorical features
+        encoding = {val: idx for idx, val in enumerate(np.unique(query[categorical_features]))}
+        encoded_query = [encoding[val] if idx in categorical_features else val for idx, val in enumerate(query)]
         
         # Simulated prediction logic
         base_price = 500
         price = base_price
         price += encoded_query[0] * 50  # Company
         price += encoded_query[1] * 100  # Type
-        price += query[2] * 20  # RAM
-        price += query[3] * 10  # Weight
-        price += query[4] * 100  # Touchscreen
-        price += query[5] * 50  # IPS
-        price += query[6] * 20  # PPI
+        price += int(query[2]) * 20  # RAM
+        price += float(query[3]) * 10  # Weight
+        price += int(query[4]) * 100  # Touchscreen
+        price += int(query[5]) * 50  # IPS
+        price += float(query[6]) * 20  # PPI
         price += encoded_query[7] * 50  # CPU
-        price += query[8] * 0.1  # HDD
-        price += query[9] * 0.2  # SSD
+        price += int(query[8]) * 0.1  # HDD
+        price += int(query[9]) * 0.2  # SSD
         price += encoded_query[10] * 50  # GPU
         price += encoded_query[11] * 30  # OS
         return [np.log(price)]
