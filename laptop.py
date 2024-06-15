@@ -19,7 +19,7 @@ class MockModel:
         encoding = {val: idx for idx, val in enumerate(np.unique(query))}
         encoded_query = [encoding[val] if val in encoding else val for val in query]
         # Mock prediction logic (replace with your model's logic)
-        return np.log(np.sum(encoded_query) + 1000)
+        return [np.log(np.sum(encoded_query) + 1000)]  # Return a list with one element
 
 # Instantiate mock model
 pipe = MockModel()
