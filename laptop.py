@@ -5,10 +5,10 @@ import pandas as pd
 # Mock DataFrame to replace df.pkl
 data = {
     'Company': ['Dell', 'HP', 'Acer', 'Apple', 'Asus', 'Lenovo', 'MSI'],
-    'TypeName': ['Ultrabook', 'Gaming', 'Notebook', 'Netbook', 'Workstation'],
-    'Cpu brand': ['Intel Core i5', 'Intel Core i7', 'AMD Ryzen 5', 'AMD Ryzen 7'],
-    'Gpu brand': ['Nvidia', 'AMD', 'Intel'],
-    'os': ['Windows', 'MacOS', 'Linux', 'No OS']
+    'TypeName': ['Ultrabook', 'Gaming', 'Notebook', 'Netbook', 'Workstation', 'Ultrabook', 'Gaming'],
+    'Cpu brand': ['Intel Core i5', 'Intel Core i7', 'AMD Ryzen 5', 'AMD Ryzen 7', 'Intel Core i5', 'Intel Core i7', 'AMD Ryzen 5'],
+    'Gpu brand': ['Nvidia', 'AMD', 'Intel', 'Nvidia', 'AMD', 'Intel', 'Nvidia'],
+    'os': ['Windows', 'MacOS', 'Linux', 'No OS', 'Windows', 'MacOS', 'Linux']
 }
 df = pd.DataFrame(data)
 
