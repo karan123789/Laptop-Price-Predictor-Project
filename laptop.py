@@ -15,8 +15,11 @@ df = pd.DataFrame(data)
 # Mock model to replace pipe.pkl
 class MockModel:
     def predict(self, query):
+        # Encoding categorical variables
+        encoding = {val: idx for idx, val in enumerate(np.unique(query))}
+        encoded_query = [encoding[val] if val in encoding else val for val in query]
         # Mock prediction logic (replace with your model's logic)
-        return np.log(np.sum(query) + 1000)
+        return np.log(np.sum(encoded_query) + 1000)
 
 # Instantiate mock model
 pipe = MockModel()
@@ -85,5 +88,5 @@ if st.button('Predict Price'):
     query = np.array([company, type, ram, weight, touchscreen, ips, ppi, cpu, hdd, ssd, gpu, os])
 
     # Mock processing of the query (replace this with your actual model processing)
-    query = query.reshape(1, -1)
+    query = query.reshape(1, -1)[0]  # Flatten to 1D array for encoding
     st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))
