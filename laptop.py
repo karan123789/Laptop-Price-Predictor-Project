@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-# Dataframe to organize the columns regarding company etc.
+# Mock DataFrame to replace df.pkl
 data = {
     'Company': ['Dell', 'HP', 'Acer', 'Apple', 'Asus', 'Lenovo', 'MSI'],
     'TypeName': ['Ultrabook', 'Gaming', 'Notebook', 'Netbook', 'Workstation', 'Ultrabook', 'Gaming'],
@@ -12,14 +12,29 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Model for encoding and prediction
+# Mock model to replace pipe.pkl
 class MockModel:
     def predict(self, query):
-        # Encoding categorical variables
+        # Simple encoding for categorical variables
         encoding = {val: idx for idx, val in enumerate(np.unique(query))}
         encoded_query = [encoding[val] if val in encoding else val for val in query]
-        # Mock prediction logic (replace with your model's logic)
-        return [np.log(np.sum(encoded_query) + 1000)]  # Return a list with one element
+        
+        # Simulated prediction logic
+        base_price = 500
+        price = base_price
+        price += encoded_query[0] * 50  # Company
+        price += encoded_query[1] * 100  # Type
+        price += query[2] * 20  # RAM
+        price += query[3] * 10  # Weight
+        price += query[4] * 100  # Touchscreen
+        price += query[5] * 50  # IPS
+        price += query[6] * 20  # PPI
+        price += encoded_query[7] * 50  # CPU
+        price += query[8] * 0.1  # HDD
+        price += query[9] * 0.2  # SSD
+        price += encoded_query[10] * 50  # GPU
+        price += encoded_query[11] * 30  # OS
+        return [np.log(price)]
 
 # Instantiate mock model
 pipe = MockModel()
@@ -89,4 +104,5 @@ if st.button('Predict Price'):
 
     # Mock processing of the query (replace this with your actual model processing)
     query = query.reshape(1, -1)[0]  # Flatten to 1D array for encoding
-    st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))
+    predicted_price = np.exp(pipe.predict(query)[0])
+    st.title("The predicted price of this configuration is " + str(int(predicted_price)))
