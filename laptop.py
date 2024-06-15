@@ -42,7 +42,7 @@ touchscreen = st.selectbox('Touchscreen', ['No', 'Yes'])
 ips = st.selectbox('IPS', ['No', 'Yes'])
 
 # Screen size
-screen_size = st.number_input('Screen Size')
+screen_size = st.number_input('Screen Size', min_value=1.0, step=0.1)
 
 # Resolution
 resolution = st.selectbox('Screen Resolution', ['1920x1080', '1366x768', '1600x900', '3840x2160', '3200x1800', '2880x1800', '2560x1600', '2560x1440', '2304x1440'])
@@ -64,7 +64,6 @@ os = st.selectbox('OS', df['os'].unique())
 
 if st.button('Predict Price'):
     # Query
-    ppi = None
     if touchscreen == 'Yes':
         touchscreen = 1
     else:
@@ -77,7 +76,12 @@ if st.button('Predict Price'):
 
     X_res = int(resolution.split('x')[0])
     Y_res = int(resolution.split('x')[1])
-    ppi = ((X_res**2) + (Y_res**2))**0.5 / screen_size
+    try:
+        ppi = ((X_res**2) + (Y_res**2))**0.5 / screen_size
+    except ZeroDivisionError:
+        st.error("Screen size cannot be zero.")
+        ppi = 0
+
     query = np.array([company, type, ram, weight, touchscreen, ips, ppi, cpu, hdd, ssd, gpu, os])
 
     # Mock processing of the query (replace this with your actual model processing)
