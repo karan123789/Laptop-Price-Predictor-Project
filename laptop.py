@@ -22,20 +22,19 @@ class MockModel:
         # Simulated prediction logic with adjusted scaling factors
         base_price = 500
         price = base_price
-        price += encoded_query[0] * 50  # Company (decreased scaling factor)
-        price += encoded_query[1] * 100  # Type (kept the same)
-        price += int(query[2]) * 5  # RAM (decreased scaling factor)
-        price += float(query[3]) * 2  # Weight (decreased scaling factor)
-        price += int(query[4]) * 50  # Touchscreen (kept the same)
-        price += int(query[5]) * 25  # IPS (decreased scaling factor)
-        price += float(query[6]) * 2  # PPI (decreased scaling factor)
-        price += encoded_query[7] * 100  # CPU (kept the same)
-        price += int(query[8]) * 0.1  # HDD (kept the same)
-        price += int(query[9]) * 0.2  # SSD (kept the same)
-        price += encoded_query[10] * 50  # GPU (decreased scaling factor)
-        price += encoded_query[11] * 30  # OS (decreased scaling factor)
+        price += encoded_query[0] * 20  # Company (decreased scaling factor)
+        price += encoded_query[1] * 50  # Type (decreased scaling factor)
+        price += int(query[2]) * 2  # RAM (decreased scaling factor)
+        price += float(query[3]) * 1  # Weight (decreased scaling factor)
+        price += int(query[4]) * 20  # Touchscreen (decreased scaling factor)
+        price += int(query[5]) * 10  # IPS (decreased scaling factor)
+        price += float(query[6]) * 1  # PPI (decreased scaling factor)
+        price += encoded_query[7] * 50  # CPU (decreased scaling factor)
+        price += int(query[8]) * 0.05  # HDD (decreased scaling factor)
+        price += int(query[9]) * 0.1  # SSD (decreased scaling factor)
+        price += encoded_query[10] * 20  # GPU (decreased scaling factor)
+        price += encoded_query[11] * 10  # OS (decreased scaling factor)
         return [np.log(price)]
-
 
 
 # Instantiate mock model
