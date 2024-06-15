@@ -12,7 +12,6 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Mock model to replace pipe.pkl
 class MockModel:
     def predict(self, query):
         # Simple encoding for categorical variables
@@ -20,22 +19,23 @@ class MockModel:
         encoding = {val: idx for idx, val in enumerate(np.unique(query[categorical_features]))}
         encoded_query = [encoding[val] if idx in categorical_features else val for idx, val in enumerate(query)]
         
-        # Simulated prediction logic
+        # Simulated prediction logic with adjusted scaling factors
         base_price = 500
         price = base_price
-        price += encoded_query[0] * 50  # Company
-        price += encoded_query[1] * 100  # Type
-        price += int(query[2]) * 20  # RAM
-        price += float(query[3]) * 10  # Weight
-        price += int(query[4]) * 100  # Touchscreen
-        price += int(query[5]) * 50  # IPS
-        price += float(query[6]) * 20  # PPI
-        price += encoded_query[7] * 50  # CPU
-        price += int(query[8]) * 0.1  # HDD
-        price += int(query[9]) * 0.2  # SSD
-        price += encoded_query[10] * 50  # GPU
-        price += encoded_query[11] * 30  # OS
+        price += encoded_query[0] * 100  # Company (increased scaling factor)
+        price += encoded_query[1] * 200  # Type (increased scaling factor)
+        price += int(query[2]) * 10  # RAM (decreased scaling factor)
+        price += float(query[3]) * 5  # Weight (decreased scaling factor)
+        price += int(query[4]) * 100  # Touchscreen (kept the same)
+        price += int(query[5]) * 50  # IPS (kept the same)
+        price += float(query[6]) * 5  # PPI (decreased scaling factor)
+        price += encoded_query[7] * 100  # CPU (increased scaling factor)
+        price += int(query[8]) * 0.1  # HDD (kept the same)
+        price += int(query[9]) * 0.2  # SSD (kept the same)
+        price += encoded_query[10] * 100  # GPU (increased scaling factor)
+        price += encoded_query[11] * 50  # OS (kept the same)
         return [np.log(price)]
+
 
 # Instantiate mock model
 pipe = MockModel()
